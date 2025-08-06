@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Roselin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    body {
+      background: linear-gradient(to top right, #fbcfe8, #f9a8d4);
+      overflow-x: hidden;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .fade-in {
+      animation: fadeIn 1.2s ease-out forwards;
+    }
+
+    .typewriter {
+      overflow: hidden;
+      border-right: .15em solid #f472b6;
+      white-space: nowrap;
+      letter-spacing: .1em;
+      animation:
+        typing 3.5s steps(40, end),
+        blink-caret .75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink-caret {
+      from, to { border-color: transparent }
+      50% { border-color: #f472b6; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center flex-col text-center text-pink-900 px-6 sm:px-8">
+
+  <!-- 🎀 Tap to Start Section -->
+  <div id="intro" class="flex flex-col items-center justify-center min-h-screen w-full max-w-xl mx-auto">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-pink-800 mb-4 animate-pulse">
+      🎀 Tap here..🎀
+    </h1>
+  </div>
+
+  <!-- 🎂 Birthday Card Section -->
+  <div id="card" class="hidden fade-in bg-white/60 p-6 sm:p-8 rounded-3xl shadow-2xl border-4 border-pink-300 w-full max-w-xl mx-auto">
+    <h1 class="text-2xl sm:text-3xl md:text-4xl font-bold text-pink-800 mb-6 animate-pulse">
+      🎂 Happy Birthday Roselin 🎂
+    </h1>
+
+    <p class="text-pink-700 text-base sm:text-lg md:text-xl italic typewriter mb-4">
+      Wishing you sparkles, smiles, sweet moments✨
+    </p>
+
+    <p class="text-pink-800 font-medium text-sm sm:text-base mt-3">💖 May we be roomies again someday 💖</p>
+  </div>
+
+  <!-- 🔊 Background Music -->
+  <audio id="bg-music" preload="auto">
+    <source src="your-music.mp3.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- 🎉 Script -->
+  <script>
+    const intro = document.getElementById('intro');
+    const card = document.getElementById('card');
+    const music = document.getElementById('bg-music');
+    let started = false;
+
+    function startCard() {
+      if (started) return;
+      started = true;
+
+      // Play music (on user tap)
+      music.play().catch(() => {
+        alert("Please tap again to allow music playback.");
+      });
+
+      // Fullscreen (optional)
+      document.documentElement.requestFullscreen?.().catch(() => {});
+
+      // Show card
+      intro.classList.add('hidden');
+      card.classList.remove('hidden');
+
+      // Confetti
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+
+      // Optional message
+      setTimeout(() => {
+        alert("💌 You're loved, cherished, and celebrated today 🌸");
+      }, 4000);
+    }
+
+    // Support tap + touch on mobile
+    document.body.addEventListener('click', startCard);
+    document.body.addEventListener('touchstart', startCard);
+  </script>
+
+</body>
+</html>
